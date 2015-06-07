@@ -1,0 +1,70 @@
+	Babylon.js Exporter version: 1.7.0, Blender version: 2.73 (sub 0)
+========= Conversion from Blender to Babylon.js =========
+	Python World class constructor completed
+	processing begun of material:  balltingo.ball
+	processing begun of material:  balltingo.bar
+	processing begun of material:  balltingo.suelo
+	Diffuse texture found
+	WARNING image texture type not recognized:  <bpy_struct, MaterialTextureSlot("Suelo")>, ignored.
+	Bump texture found
+	processing begun of material:  balltingo.wall
+	Diffuse texture found
+	WARNING image texture type not recognized:  <bpy_struct, MaterialTextureSlot("Suelo")>, ignored.
+	processing begun of mesh:  Bar
+		num positions      :  8
+		num normals        :  8
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  Wall3
+		num positions      :  28
+		num normals        :  28
+		num uvs            :  56
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  Wall4
+		num positions      :  31
+		num normals        :  31
+		num uvs            :  62
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  Wall2
+		num positions      :  31
+		num normals        :  31
+		num uvs            :  62
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  Wall1
+		num positions      :  31
+		num normals        :  31
+		num uvs            :  62
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  Floor
+		num positions      :  30
+		num normals        :  30
+		num uvs            :  60
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  36
+	processing begun of mesh:  Ball
+		num positions      :  482
+		num normals        :  482
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  2880
+	processing begun of camera (FreeCamera):  Camera
+	processing begun of light (SUN):  Sun
+	processing begun of light (POINT):  Lamp.002
+	processing begun of light (POINT):  Lamp.000
+	processing begun of light (POINT):  Point
+	processing begun of light (POINT):  Lamp.001
+========= Writing of scene file started =========
+========= Writing of scene file completed =========
+========= end of processing =========
