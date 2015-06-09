@@ -54,6 +54,42 @@ setObjects = function(Balltingo) {
   wall4.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
     mass: 0
   });
+  BABYLON.SceneLoader.ImportMesh('Box', '../assets/', 'box.babylon', Balltingo, function(newMeshes) {
+    var box, boxClone, col, row, separate, x, y, z;
+    box = newMeshes[0];
+    x = -8;
+    y = 1.9;
+    z = -6;
+    box.position = new BABYLON.Vector3(x, y, z);
+    box.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
+      mass: 1000
+    });
+    row = 0;
+    col = 0;
+    separate = 2;
+    while (row < 3) {
+      while (col < 4) {
+        z = z + 3;
+        boxClone = box.clone("boxClone" + col);
+        boxClone.position = new BABYLON.Vector3(x, y, z);
+        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
+          mass: 1000
+        });
+        col++;
+      }
+      z = -6;
+      x = x + 4;
+      if (row < 2) {
+        boxClone = box.clone("boxClone" + row);
+        boxClone.position = new BABYLON.Vector3(x, y, z);
+        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
+          mass: 1000
+        });
+      }
+      col = 0;
+      row++;
+    }
+  });
   data = {
     camera: camera,
     Balltingo: Balltingo,

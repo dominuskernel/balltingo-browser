@@ -32,6 +32,33 @@ setObjects = (Balltingo) ->
   wall4 = Balltingo.getMeshByID("Wall4")
   wall4.checkCollisions = true
   wall4.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 0})
+  BABYLON.SceneLoader.ImportMesh 'Box', '../assets/', 'box.babylon', Balltingo, (newMeshes) ->
+    box = newMeshes[0]
+    x = - 8
+    y = 1.9
+    z = -6
+    box.position = new BABYLON.Vector3(x, y, z)
+    box.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+    row = 0
+    col = 0
+    separate = 2
+    while row < 3
+      while col < 4
+        z = z + 3
+        boxClone = box.clone("boxClone" + col)
+        boxClone.position = new BABYLON.Vector3(x, y, z)
+        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+        col++
+      z = -6
+      x = x + 4
+      if row < 2
+        boxClone = box.clone("boxClone" + row)
+        boxClone.position = new BABYLON.Vector3(x, y, z)
+        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+      col = 0
+      row++
+
+    return
   data = {
     camera: camera
     Balltingo: Balltingo
@@ -47,6 +74,7 @@ setObjects = (Balltingo) ->
     start: false
     lostLife: false
   }
+
   return data
 
 renderAll= (data,canvas,engine) ->
