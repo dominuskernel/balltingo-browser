@@ -1,12 +1,13 @@
-var gulp            = require('gulp'),
-    // this is an arbitrary object that loads all gulp plugins in package.json.
-    $         = require("gulp-load-plugins")(),
-    express   = require('express'),
-    browserSync = require('browser-sync'),
-    path      = require('path'),
-    tinylr    = require('tiny-lr'),
-    app       = express(),
-    server    = tinylr();
+var gulp = require('gulp'),
+// this is an arbitrary object that loads all gulp plugins in package.json.
+$ = require("gulp-load-plugins")(),
+express = require('express'),
+browserSync = require('browser-sync'),
+path = require('path'),
+tinylr = require('tiny-lr'),
+app = express(),
+server = tinylr();
+merge = require('merge-stream')
 
 gulp.task('browser-sync', function() {
   browserSync({
@@ -37,13 +38,16 @@ gulp.task('coffee', function() {
     .pipe( $.livereload( server ) );
 });
 
-gulp.task('js', function(){
-  return gulp.src('src/lib/*.js')
+gulp.task('components', function(){
+  var libs = gulp.src('src/lib/*.js')
     .pipe($.uglify())
     .pipe(gulp.dest('dist/scripts/lib'))
     .pipe(browserSync.reload({stream: true}))
-    .pipe( $.livereload( server ) );
-})
+    .pipe( $.livereload( server ));
+  var bowerComponents = gulp.src('bower_components/**/*.*')
+    .pipe(gulp.dest('dist/scripts/bower_components'))
+    return merge(libs, bowerComponents)
+});
 
 gulp.task('assets', function() {
   return gulp.src('./src/assets/*')
@@ -78,7 +82,7 @@ gulp.task('watch', function () {
 
     gulp.watch('src/coffeeScripts/*.coffee',['coffee']);
 
-    gulp.watch('src/lib/*js',['js'])
+    gulp.watch('src/lib/*js',['components'])
 
     gulp.watch('src/views/*.jade',['views']);
 
@@ -88,4 +92,4 @@ gulp.task('watch', function () {
 });
 
 // Default Task
-gulp.task('default', ['coffee','compass','views','js', 'assets', 'express','watch']);
+gulp.task('default', ['coffee','compass','views','components', 'assets', 'express','watch']);

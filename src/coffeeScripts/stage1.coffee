@@ -5,9 +5,7 @@ loadScene1 = (canvas, engine)->
       world = OIMO.World()
       Balltingo.debugLayer.show(true)
       Balltingo.setGravity(0,-1000,0)
-      data = setObjects(Balltingo)
-      control(data)
-      renderAll(data,canvas,engine)
+      setObjects(Balltingo)
       return
       ), (progress) ->
     return
@@ -32,50 +30,66 @@ setObjects = (Balltingo) ->
   wall4 = Balltingo.getMeshByID("Wall4")
   wall4.checkCollisions = true
   wall4.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 0})
-  BABYLON.SceneLoader.ImportMesh 'Box', '../assets/', 'box.babylon', Balltingo, (newMeshes) ->
+
+  boxes = new BABYLON.SceneLoader.ImportMesh 'Box', '../assets/', 'box.babylon', Balltingo,(newMeshes) ->
     box = newMeshes[0]
-    x = - 8
+    x = -8
     y = 1.9
     z = -6
     box.position = new BABYLON.Vector3(x, y, z)
     box.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
     row = 0
+    boxClone = []
     col = 0
+    i = 0
     separate = 2
+
     while row < 3
       while col < 4
         z = z + 3
-        boxClone = box.clone("boxClone" + col)
-        boxClone.position = new BABYLON.Vector3(x, y, z)
-        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+        boxClone[i] = box.clone("boxClone" + col)
+        boxClone[i].position = new BABYLON.Vector3(x, y, z)
+        boxClone[i].setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+        boxClone[i].checkCollisions = true
         col++
+        i++
       z = -6
       x = x + 4
       if row < 2
-        boxClone = box.clone("boxClone" + row)
-        boxClone.position = new BABYLON.Vector3(x, y, z)
-        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+        boxClone[i] = box.clone("boxClone" + row)
+        boxClone[i].position = new BABYLON.Vector3(x, y, z)
+        boxClone[i].setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+        boxClone[i].checkCollisions = true
       col = 0
       row++
+      i++
+    i= 0
+
+    boxClone.push(box)
+
+    data = {
+      camera: camera
+      Balltingo: Balltingo
+      ball: ball
+      ballBody: ballBody
+      barra: barra
+      barraBody: barraBody
+      boxClone: boxClone
+      floor: floor
+      wall1: wall1
+      wall2: wall2
+      wall3: wall3
+      wall4: wall4
+      start: false
+      lostLife: false
+    }
+
+    control(data)
+    renderAll(data,canvas,engine)
 
     return
-  data = {
-    camera: camera
-    Balltingo: Balltingo
-    barra: barra
-    barraBody: barraBody
-    ball: ball
-    ballBody: ballBody
-    floor: floor
-    wall1: wall1
-    wall2: wall2
-    wall3: wall3
-    wall4: wall4
-    start: false
-    lostLife: false
-  }
 
-  return data
+  return
 
 renderAll= (data,canvas,engine) ->
   engine.runRenderLoop ->

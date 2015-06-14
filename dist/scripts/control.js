@@ -1,4 +1,4 @@
-var control, move;
+var control, destroyBox, move;
 
 control = function(data) {
   var onKeyDown, onKeyUp;
@@ -34,8 +34,9 @@ control = function(data) {
 };
 
 move = function(data) {
-  var s;
+  var i, s;
   s = 2.5;
+  i = 0;
   if (data.barraBody.moveLeft && data.barra.position.z > -5) {
     data.barra.applyImpulse(new BABYLON.Vector3(0, 0, -s), data.barra.position);
   } else if (data.barraBody.moveRight) {
@@ -45,6 +46,10 @@ move = function(data) {
   data.barraBody.body.angularVelocity.scaleEqual(0);
   if (data.barra.intersectsMesh(data.ball, false)) {
     data.ball.applyImpulse(new BABYLON.Vector3(-5, 0, 0), data.ball.position);
+  }
+  while (i < data.boxClone.length) {
+    destroyBox(data.boxClone[i], data.ball);
+    i++;
   }
   if (data.wall4.intersectsMesh(data.ball, false)) {
     data.start = false;
@@ -57,4 +62,12 @@ move = function(data) {
     data.lostLife = false;
   }
   return data;
+};
+
+destroyBox = function(box, ball) {
+  if (box.intersectsMesh(ball, false)) {
+    return setTimeout(function() {
+      return box.dispose();
+    }, 200);
+  }
 };

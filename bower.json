@@ -2,8 +2,9 @@
   "name": "balltingo",
   "version": "0.0.0",
   "dependencies": {
-    "jquery":"2.1.1",
-    "three.js":"0.0.69"
+    "jquery":"~2.1.0"
   },
-  "devDependencies": {}
+
+  "devDependencies": {
+  }
 }

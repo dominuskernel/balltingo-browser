@@ -3,20 +3,18 @@ var loadScene1, renderAll, setObjects;
 loadScene1 = function(canvas, engine) {
   BABYLON.SceneLoader.Load("", "../assets/balltingo.babylon", engine, function(Balltingo) {
     Balltingo.executeWhenReady((function() {
-      var data, world;
+      var world;
       Balltingo.enablePhysics(new BABYLON.Vector3(0, -1000, 0), new BABYLON.OimoJSPlugin());
       world = OIMO.World();
       Balltingo.debugLayer.show(true);
       Balltingo.setGravity(0, -1000, 0);
-      data = setObjects(Balltingo);
-      control(data);
-      renderAll(data, canvas, engine);
+      setObjects(Balltingo);
     }), function(progress) {});
   });
 };
 
 setObjects = function(Balltingo) {
-  var ball, ballBody, barra, barraBody, camera, data, floor, wall1, wall2, wall3, wall4;
+  var ball, ballBody, barra, barraBody, boxes, camera, floor, wall1, wall2, wall3, wall4;
   camera = Balltingo.getCameraByName("Camera");
   camera.cameraDirection = new BABYLON.Vector3(0.2, 0, 0);
   barra = Balltingo.getMeshByID("Bar");
@@ -54,8 +52,8 @@ setObjects = function(Balltingo) {
   wall4.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
     mass: 0
   });
-  BABYLON.SceneLoader.ImportMesh('Box', '../assets/', 'box.babylon', Balltingo, function(newMeshes) {
-    var box, boxClone, col, row, separate, x, y, z;
+  boxes = new BABYLON.SceneLoader.ImportMesh('Box', '../assets/', 'box.babylon', Balltingo, function(newMeshes) {
+    var box, boxClone, col, data, i, row, separate, x, y, z;
     box = newMeshes[0];
     x = -8;
     y = 1.9;
@@ -65,47 +63,57 @@ setObjects = function(Balltingo) {
       mass: 1000
     });
     row = 0;
+    boxClone = [];
     col = 0;
+    i = 0;
     separate = 2;
     while (row < 3) {
       while (col < 4) {
         z = z + 3;
-        boxClone = box.clone("boxClone" + col);
-        boxClone.position = new BABYLON.Vector3(x, y, z);
-        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
+        boxClone[i] = box.clone("boxClone" + col);
+        boxClone[i].position = new BABYLON.Vector3(x, y, z);
+        boxClone[i].setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
           mass: 1000
         });
+        boxClone[i].checkCollisions = true;
         col++;
+        i++;
       }
       z = -6;
       x = x + 4;
       if (row < 2) {
-        boxClone = box.clone("boxClone" + row);
-        boxClone.position = new BABYLON.Vector3(x, y, z);
-        boxClone.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
+        boxClone[i] = box.clone("boxClone" + row);
+        boxClone[i].position = new BABYLON.Vector3(x, y, z);
+        boxClone[i].setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
           mass: 1000
         });
+        boxClone[i].checkCollisions = true;
       }
       col = 0;
       row++;
+      i++;
     }
+    i = 0;
+    boxClone.push(box);
+    data = {
+      camera: camera,
+      Balltingo: Balltingo,
+      ball: ball,
+      ballBody: ballBody,
+      barra: barra,
+      barraBody: barraBody,
+      boxClone: boxClone,
+      floor: floor,
+      wall1: wall1,
+      wall2: wall2,
+      wall3: wall3,
+      wall4: wall4,
+      start: false,
+      lostLife: false
+    };
+    control(data);
+    renderAll(data, canvas, engine);
   });
-  data = {
-    camera: camera,
-    Balltingo: Balltingo,
-    barra: barra,
-    barraBody: barraBody,
-    ball: ball,
-    ballBody: ballBody,
-    floor: floor,
-    wall1: wall1,
-    wall2: wall2,
-    wall3: wall3,
-    wall4: wall4,
-    start: false,
-    lostLife: false
-  };
-  return data;
 };
 
 renderAll = function(data, canvas, engine) {
