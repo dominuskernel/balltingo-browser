@@ -1,0 +1,39 @@
+{
+  "name": "handjs",
+  "description": "Hand.js is a polyfill for pointer events.",
+  "main": "bin/hand.js",
+  "homepage": "https://github.com/deltakosh/handjs",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/deltakosh/handjs.git"
+  },
+  "authors": [
+    "David Catuhe"
+  ],
+  "keywords": [
+    "pointer",
+    "touch",
+    "event"
+  ],
+  "license": "Apache-2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "samples",
+    "gulpfile.js",
+    "package.json",
+    "dist"
+  ],
+  "_release": "8b08e4dcc0",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8b08e4dcc001e961ff5a198983827aca52d4bcbd"
+  },
+  "_source": "https://github.com/deltakosh/handjs.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/deltakosh/handjs.git"
+}

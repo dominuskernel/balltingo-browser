@@ -6,7 +6,6 @@ loadScene1 = function(canvas, engine) {
       var world;
       Balltingo.enablePhysics(new BABYLON.Vector3(0, -1000, 0), new BABYLON.OimoJSPlugin());
       world = OIMO.World();
-      Balltingo.debugLayer.show(true);
       Balltingo.setGravity(0, -1000, 0);
       setObjects(Balltingo);
     }), function(progress) {});
@@ -53,7 +52,7 @@ setObjects = function(Balltingo) {
     mass: 0
   });
   boxes = new BABYLON.SceneLoader.ImportMesh('Box', '../assets/', 'box.babylon', Balltingo, function(newMeshes) {
-    var box, boxClone, col, data, i, row, separate, x, y, z;
+    var box, boxClone, col, data, i, lifes, points, row, separate, x, y, z;
     box = newMeshes[0];
     x = -8;
     y = 1.9;
@@ -62,11 +61,16 @@ setObjects = function(Balltingo) {
     box.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {
       mass: 1000
     });
+    box.checkCollisions = true;
     row = 0;
     boxClone = [];
     col = 0;
     i = 0;
     separate = 2;
+    points = 0;
+    lifes = 3;
+    $('.score').text(' ' + points);
+    $('.lifes').text(' ' + lifes);
     while (row < 3) {
       while (col < 4) {
         z = z + 3;
@@ -104,6 +108,8 @@ setObjects = function(Balltingo) {
       barraBody: barraBody,
       boxClone: boxClone,
       floor: floor,
+      lifes: lifes,
+      points: points,
       wall1: wall1,
       wall2: wall2,
       wall3: wall3,

@@ -1,4 +1,4 @@
-var control, destroyBox, move;
+var control, destroyBox, fireBox, move;
 
 control = function(data) {
   var onKeyDown, onKeyUp;
@@ -48,7 +48,7 @@ move = function(data) {
     data.ball.applyImpulse(new BABYLON.Vector3(-5, 0, 0), data.ball.position);
   }
   while (i < data.boxClone.length) {
-    destroyBox(data.boxClone[i], data.ball);
+    data.points = destroyBox(data.Balltingo, data.boxClone[i], data.ball, data.points);
     i++;
   }
   if (data.wall4.intersectsMesh(data.ball, false)) {
@@ -64,10 +64,49 @@ move = function(data) {
   return data;
 };
 
-destroyBox = function(box, ball) {
+fireBox = function(Balltingo, box) {
+  var fire;
+  fire = new BABYLON.ParticleSystem("fire" + box.name, 2000, Balltingo);
+  fire.particleTexture = new BABYLON.Texture("../assets/fire.png", Balltingo);
+  fire.emitter = box;
+  fire.minEmitBox = new BABYLON.Vector3(-1, 0, 0);
+  fire.maxEmitBox = new BABYLON.Vector3(1, 0, 0);
+  fire.color1 = new BABYLON.Color4(0.82, 0.62, 0.13, 1.0);
+  fire.color2 = new BABYLON.Color4(0.29, 0.31, 1.0, 0.8);
+  fire.colorDead = new BABYLON.Color4(0, 0, 0.2, 0.0);
+  fire.minSize = 0.1;
+  fire.maxSize = 0.3;
+  fire.minLifeTime = 0.5;
+  fire.maxLifeTime = 2;
+  fire.emitRate = 2000;
+  fire.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
+  fire.gravity = new BABYLON.Vector3(0, -9.81, 0);
+  fire.direction1 = new BABYLON.Vector3(1, 8, 3);
+  fire.direction2 = new BABYLON.Vector3(-1, 8, -3);
+  fire.minAngularSpeed = 0;
+  fire.maxAngularSpeed = Math.PI;
+  fire.minEmitPower = 3;
+  fire.maxEmitPower = 8;
+  fire.updateSpeed = 0.005;
+  fire.start();
+  setTimeout(function() {
+    return fire.stop();
+  }, 300);
+  return fire;
+};
+
+destroyBox = function(Balltingo, box, ball, points) {
+  var fire;
   if (box.intersectsMesh(ball, false)) {
-    return setTimeout(function() {
+    if (box.isDisposed() === false && box.checkCollisions === true) {
+      box.checkCollisions = false;
+      points = points + 50;
+      $('.score').text(' ' + points);
+      fire = fireBox(Balltingo, box);
+    }
+    setTimeout(function() {
       return box.dispose();
     }, 200);
   }
+  return points;
 };

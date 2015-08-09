@@ -1,0 +1,13 @@
+{
+  "name": "bgGui",
+  "homepage": "https://github.com/Temechon/bGUI",
+  "_release": "0c237f0ac2",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "0c237f0ac245afc779b4bb585345afc7d06d3c1b"
+  },
+  "_source": "https://github.com/Temechon/bGUI.git",
+  "_target": "master",
+  "_originalSource": "https://github.com/Temechon/bGUI.git"
+}

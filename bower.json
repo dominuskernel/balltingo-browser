@@ -2,7 +2,10 @@
   "name": "balltingo",
   "version": "0.0.0",
   "dependencies": {
-    "jquery":"~2.1.0"
+    "jquery":"~2.1.0",
+    "babylonjs":"https://github.com/BabylonJS/Babylon.js.git#master",
+    "bgGui":"https://github.com/Temechon/bGUI.git#master",
+    "handjs":"https://github.com/deltakosh/handjs.git#master"
   },
 
   "devDependencies": {

@@ -6,8 +6,15 @@ html, body {
   padding: 0;
 }
 
-#renderCanvas {
+canvas {
   width: 100%;
   height: 100%;
-  touch-action: none;
+}
+
+.guiText {
+  font-size: 30px;
+  color: #fff;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }

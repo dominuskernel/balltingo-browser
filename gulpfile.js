@@ -7,7 +7,7 @@ path = require('path'),
 tinylr = require('tiny-lr'),
 app = express(),
 server = tinylr();
-merge = require('merge-stream')
+merge = require('merge-stream');
 
 gulp.task('browser-sync', function() {
   browserSync({
@@ -18,7 +18,7 @@ gulp.task('browser-sync', function() {
 });
 
 gulp.task('compass', function() {
-    gulp.src('./src/stylesheets/main.scss')
+    gulp.src('./src/stylesheets/main.sass')
         .pipe($.plumber())
         .pipe($.compass({
             css: 'dist/stylesheets',
@@ -78,11 +78,11 @@ gulp.task('watch', function () {
       return console.log(err);
     }
 
-    gulp.watch('src/stylesheets/*.scss',['compass']);
+    gulp.watch('src/stylesheets/*.sass',['compass']);
 
     gulp.watch('src/coffeeScripts/*.coffee',['coffee']);
 
-    gulp.watch('src/lib/*js',['components'])
+    gulp.watch('src/scripts/bower-components/*.*',['components'])
 
     gulp.watch('src/views/*.jade',['views']);
 

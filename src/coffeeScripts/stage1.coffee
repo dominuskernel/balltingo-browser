@@ -3,7 +3,6 @@ loadScene1 = (canvas, engine)->
     Balltingo.executeWhenReady (->
       Balltingo.enablePhysics(new BABYLON.Vector3(0,-1000,0), new BABYLON.OimoJSPlugin())
       world = OIMO.World()
-      Balltingo.debugLayer.show(true)
       Balltingo.setGravity(0,-1000,0)
       setObjects(Balltingo)
       return
@@ -38,11 +37,16 @@ setObjects = (Balltingo) ->
     z = -6
     box.position = new BABYLON.Vector3(x, y, z)
     box.setPhysicsState(BABYLON.PhysicsEngine.BoxImpostor, {mass: 1000})
+    box.checkCollisions = true
     row = 0
     boxClone = []
     col = 0
     i = 0
     separate = 2
+    points = 0
+    lifes = 3
+    $('.score').text(' ' + points)
+    $('.lifes').text(' ' + lifes)
 
     while row < 3
       while col < 4
@@ -76,6 +80,8 @@ setObjects = (Balltingo) ->
       barraBody: barraBody
       boxClone: boxClone
       floor: floor
+      lifes: lifes
+      points: points
       wall1: wall1
       wall2: wall2
       wall3: wall3

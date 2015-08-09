@@ -6,12 +6,14 @@
     <title>Entorno 3D con Promodominus</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/main.css">
     <script src="../scripts/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../scripts/lib/babylon.2.0.js"></script>
-    <script src="../scripts/lib/Oimo.js"></script>
-    <script src="../scripts/lib/cannon.js"></script>
+    <script src="../scripts/bower_components/babylonjs/dist/babylon.2.1.js"></script>
+    <script src="../scripts/bower_components/handjs/bin/hand.min.js"></script>
+    <script src="../scripts/bower_components/babylonjs/dist/Oimo.js"></script>
+    <script src="../scripts/bower_components/babylonjs/dist/cannon.js"></script>
   </head>
   <body>
     <canvas id="renderCanvas"></canvas>
+    <div class="guiText"><span class="text">Score:</span><span class="score"></span><br><span class="text">Lifes:</span><span class="lifes"></span></div>
     <script src="../scripts/control.js"></script>
     <script src="../scripts/stage1.js"></script>
     <script src="../scripts/scene.js"></script>
