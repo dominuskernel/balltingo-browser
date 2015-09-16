@@ -45,6 +45,10 @@ setObjects = (Balltingo) ->
     separate = 2
     points = 0
     lifes = 3
+    waitSoundWall = false
+    waitSoundBar = false
+    waitSoundExploit = false
+
     $('.score').text(' ' + points)
     $('.lifes').text(' ' + lifes)
 
@@ -72,6 +76,9 @@ setObjects = (Balltingo) ->
     boxClone.push(box)
 
     data = {
+      waitSoundWall : waitSoundWall
+      waitSoundBar: waitSoundBar
+      waitSoundExploit: waitSoundExploit
       camera: camera
       Balltingo: Balltingo
       ball: ball

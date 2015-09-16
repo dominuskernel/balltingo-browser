@@ -52,7 +52,7 @@ setObjects = function(Balltingo) {
     mass: 0
   });
   boxes = new BABYLON.SceneLoader.ImportMesh('Box', '../assets/', 'box.babylon', Balltingo, function(newMeshes) {
-    var box, boxClone, col, data, i, lifes, points, row, separate, x, y, z;
+    var box, boxClone, col, data, i, lifes, points, row, separate, waitSoundBar, waitSoundExploit, waitSoundWall, x, y, z;
     box = newMeshes[0];
     x = -8;
     y = 1.9;
@@ -69,6 +69,9 @@ setObjects = function(Balltingo) {
     separate = 2;
     points = 0;
     lifes = 3;
+    waitSoundWall = false;
+    waitSoundBar = false;
+    waitSoundExploit = false;
     $('.score').text(' ' + points);
     $('.lifes').text(' ' + lifes);
     while (row < 3) {
@@ -100,6 +103,9 @@ setObjects = function(Balltingo) {
     i = 0;
     boxClone.push(box);
     data = {
+      waitSoundWall: waitSoundWall,
+      waitSoundBar: waitSoundBar,
+      waitSoundExploit: waitSoundExploit,
       camera: camera,
       Balltingo: Balltingo,
       ball: ball,
